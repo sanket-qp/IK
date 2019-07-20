@@ -1,0 +1,31 @@
+Page Fault/Locality of reference
+Java collection classes/Internals
+Java circular references and garbage collection
+size of java reference
+Linked List with Generics
+Bloom filters (membership check for very large numbers)
+Distributed LRU cache
+
+
+
+----
+class problems
+----
+detect a loop in linked list
+how many nodes in a loop
+where does the loop start
+LRU cache
+min stack
+Level order iterator of a heiarchical structure  (Node, right_ptr, down_ptr) so order will be left -> right first then top -> bottom (flatten/unflatten a list)
+search in sorted linked list (better search than O(n))
+Skip Lists
+
+
+
+
+
+----
+remaining
+----
+max in sliding window
+binary search sorted linked list ? is this even possible ?
