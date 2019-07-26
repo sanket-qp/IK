@@ -1,0 +1,17 @@
+highly parallel sorts => merge is a better choice than bucket sort
+bucket sort (this is a linear sort)
+Matt Fontaine: https://www.youtube.com/channel/UCBLr7ISa_YDy5qeATupf26w
+
+
+----
+class problems
+----
+All Subsets (cheese, salad, cookie)
+All Increasing Subsequences
+All permutations
+
+
+
+----
+remaining
+----

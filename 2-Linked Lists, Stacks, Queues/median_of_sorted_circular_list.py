@@ -14,15 +14,23 @@ def middle(lst, frm, _to):
     slow = lst.head
     fast = lst.head
 
-    while True:
-        if fast is _to:
-            break
-        if fast.next is _to:
-            break
+    slow = frm
+    fast = frm
+    prev = slow
 
+    while True:
+        prev = slow
         slow = slow.next
         fast = fast.next.next
-    return slow
+
+        if fast is frm:
+            break
+
+        if fast.next is frm:
+            slow = slow.next
+            break
+
+    return prev, slow
 
 
 def get_order(node1, node2):
@@ -32,17 +40,18 @@ def get_order(node1, node2):
         return DESC_ORDER
 
 def median(sorted_lst, node):
+    print "RANDOM NODE: %s" % node
     prev = node
     current = node.next
-    size = 0
+    size = 1
     start_node = end_node = None
     order_changed = False
     start_found = False
     prev_order = get_order(prev, current)
 
     while True:
-        #print "---------------------"
-        #print "prev: %s, current: %s, order: %s" % (prev, current, prev_order)
+        print "---------------------"
+        print "prev: %s, current: %s, order: %s" % (prev, current, prev_order)
         size += 1
         current_order = get_order(prev, current)
         order_changed = True if prev_order != current_order else False
@@ -66,10 +75,11 @@ def median(sorted_lst, node):
     print "start", start_node
     print "end", end_node
 
-    mid = middle(sorted_lst, start_node, end_node)
-    print "MID: %s, SIZE: %d" % (mid, size)
+    prev, mid = middle(sorted_lst, start_node, end_node)
+    print "MID: %s, PREV: %s, SIZE: %d, NEXT: %s, SUM: %d" % (mid, prev, size, mid.next, (mid.key + prev.key))
+    print "HELLO: %d" % (((mid.key + prev.key)/2.0))
     if size % 2 == 0:
-        return (mid.key + mid.next.key)/2
+        return (mid.key + prev.key)/2.0
     else:
         return mid.key
 
@@ -78,35 +88,98 @@ def median_of_list(lst):
     print "LENGTH", length
     mid_idx = (length-1)//2
     print "MID", mid_idx
-    return lst[mid_idx] if length % 2 != 0 else (lst[mid_idx-1] + lst[mid_idx])/2
+    print "MID: %d, NEXT: %d, sum: %d" % (lst[mid_idx], lst[mid_idx+1], (lst[mid_idx] + lst[mid_idx+1]))
+    print "HELLO2: %d" % ((lst[mid_idx+1] + lst[mid_idx])/2)
+    return lst[mid_idx] if length % 2 != 0 else (lst[mid_idx+1] + lst[mid_idx])/2.0
 
 def main():
     N = 10
-    random_node_idx = random.randint(0, N-1)
-    random_node_idx = 3
-    #random_node_idx = 1
-    numbers = sorted([random.randint(-10, 10) for _ in range(N)])
-    numbers = [-10, -10, -10, -1, 1, 2, 3, 4, 4, 10]
-    # numbers = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-    #numbers = [4, 3, 2, 1]
+    random_idx = random.randint(1, N-1)
+    #random_idx = 0
+    numbers = [1,2,3,4,5,6,7,8,9,10]
+    expected_median = 5.5
     sorted_lst = DoublyList()
     random_node = None
     for idx, n in enumerate(numbers):
         node = Node(n, "hello:%d" % n)
         sorted_lst.add_node(node)
-        if idx == random_node_idx:
+
+        if random_idx == idx:
             random_node = node
 
-    print "Random node", random_node
     # make it circular
     sorted_lst.tail.next = sorted_lst.head
-
     print numbers
-    llm = median(sorted_lst, random_node)
-    lm = median_of_list(numbers)
-    print "linked list: %d" % llm
-    print "list: %d" % lm
-    #assert median_of_list(numbers) == median(sorted_lst, random_node)
+    actual_median = median(sorted_lst, random_node)
+    print "EXPECTED: %f, ACTUAL: %f" % (expected_median, actual_median)
+    assert expected_median == actual_median
+
+    # -----------------------------------------------------------------------------------------------
+
+    N = 11
+    random_idx = random.randint(1, N-1)
+    numbers = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+    expected_median = 6
+    sorted_lst = DoublyList()
+    random_node = None
+    for idx, n in enumerate(numbers):
+        node = Node(n, "hello:%d" % n)
+        sorted_lst.add_node(node)
+
+        if random_idx == idx:
+            random_node = node
+
+    # make it circular
+    sorted_lst.tail.next = sorted_lst.head
+    print numbers
+    actual_median = median(sorted_lst, random_node)
+    print "EXPECTED: %f, ACTUAL: %f" % (expected_median, actual_median)
+    assert expected_median == actual_median
+
+    # -----------------------------------------------------------------------------------------------
+
+    N = 11
+    random_idx = random.randint(1, N - 1)
+    numbers = [3, 2, 1, 11, 10, 9, 8, 7, 6, 5, 4]
+    numbers = [6, 7, 8, 9, 10, 11, 1, 2, 3, 4, 5]
+    expected_median = 6
+    sorted_lst = DoublyList()
+    random_node = None
+    for idx, n in enumerate(numbers):
+        node = Node(n, "hello:%d" % n)
+        sorted_lst.add_node(node)
+
+        if random_idx == idx:
+            random_node = node
+
+    # make it circular
+    sorted_lst.tail.next = sorted_lst.head
+    print numbers
+    actual_median = median(sorted_lst, random_node)
+    print "EXPECTED: %f, ACTUAL: %f" % (expected_median, actual_median)
+    assert expected_median == actual_median
+
+    # -----------------------------------------------------------------------------------------------
+
+    N = 10
+    random_idx = random.randint(1, N - 1)
+    numbers = [5, 6, 7, 8, 9, 10, 1, 2, 3, 4]
+    expected_median = 5.5
+    sorted_lst = DoublyList()
+    random_node = None
+    for idx, n in enumerate(numbers):
+        node = Node(n, "hello:%d" % n)
+        sorted_lst.add_node(node)
+
+        if random_idx == idx:
+            random_node = node
+
+    # make it circular
+    sorted_lst.tail.next = sorted_lst.head
+    print numbers
+    actual_median = median(sorted_lst, random_node)
+    print "EXPECTED: %f, ACTUAL: %f" % (expected_median, actual_median)
+    assert expected_median == actual_median
 
 
 if __name__ == '__main__':

@@ -27,5 +27,8 @@ Skip Lists
 ----
 remaining
 ----
-max in sliding window
-binary search sorted linked list ? is this even possible ?
+max in sliding window (homework1)
+median of sorted circular array (problem statement is confusing) (test-2)
+implement a queue using two stacks (test-3)
+binary search sorted linked list ? is this even possible ? (class problem)
+Dutch Flag problem - Loop Invariant strategy (https://www.geeksforgeeks.org/loop-invariant-condition-examples-sorting-algorithms/)
