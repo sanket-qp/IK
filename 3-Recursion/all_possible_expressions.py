@@ -26,6 +26,7 @@ def __all_possible_expressions(s, target, stack, result):
             result.add(expression)
         stack.pop()
 
+    # try all possible splits of the given string
     for idx in range(1, len(s)+1):
         for op in ('', '*', '+'):
             first_char = s[:idx]
@@ -48,7 +49,10 @@ def main():
     assert ['123'] == all_possible_expressions("123", 123)
     assert ['2+22', '22+2'] == all_possible_expressions("222", 24)
     assert [] == all_possible_expressions("222", 2)
+    assert ['12+3*4', '1*2*3*4'] == all_possible_expressions("1234", 24)
 
+    # worst case, all expressions will be equal to the target
+    assert 81 == len(all_possible_expressions("00000", 0))
 
 if __name__ == '__main__':
     main()
