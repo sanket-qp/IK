@@ -56,6 +56,9 @@ def main():
     s = "abcd"
     assert ['a|b|c|d'] == all_palindromic_decompositions(s)
 
+    s = "abracadabra"
+    assert ['a|b|r|a|c|a|d|a|b|r|a', 'a|b|r|a|c|ada|b|r|a',  'a|b|r|aca|d|a|b|r|a'] == all_palindromic_decompositions(s)
+
 
 if __name__ == '__main__':
     main()
