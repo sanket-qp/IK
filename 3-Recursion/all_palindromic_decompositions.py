@@ -29,6 +29,9 @@ def __all_palindromic_decompositions(s, stack, result):
     # try substring of each length, and recurse on remaining string
     for idx in range(len(s)):
         first_split = s[:idx + 1]
+        # we want all the decomposed substrings to be palindrome
+        # if first split is not palindrome then there is no point
+        # in testing the rest of the split
         if is_pali(first_split):
             stack.append(first_split)
             # recurse on remaining split
