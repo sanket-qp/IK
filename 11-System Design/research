@@ -1,0 +1,17 @@
+databases:
+    ACID properties
+    locking: lock level and read/write locks
+             row level locking
+             cell level
+             deadlock table
+
+    lease is a lock for nosql dbs
+
+    sharding:
+        consistent hashing
+
+    replication:
+        conflict resolution
+        eventual consistency
+
+    design: rate limiter
