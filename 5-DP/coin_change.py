@@ -84,7 +84,7 @@ def coin_change_recursive(T, D):
         return _min + 1
 
 
-def coin_change_DP(T, D):
+def xcoin_change_DP(T, D):
     dp_table = [0] * (T + 1)
     for i in range(0, T + 1):
         if i == 0:
@@ -103,6 +103,46 @@ def coin_change_DP(T, D):
     return dp_table[T]
 
 
+def coin_change_DP(T, D):
+    dp_table = [0] * (T + 1)
+    for i in range(0, T + 1):
+        if i == 0:
+            dp_table[i] = 0
+        else:
+            _min = sys.maxint
+            for d in D:
+                if d <= i:
+                    _min = min(_min, dp_table[i - d])
+
+            if _min == sys.maxint:
+                dp_table[i] = _min
+            else:
+                dp_table[i] = _min + 1
+
+    # find picked coins
+    picked_coins = []
+    t = T
+    while t > 0:
+        temp = []
+        for d in D:
+            if t - d >= 0:
+                # add remaining value and picked coin
+                temp.append((dp_table[t - d], d))
+
+        # find the minimum from temp that's what we chose
+        _min = sys.maxint
+        picked_coin = None
+        for dp_value, coin in temp:
+            if dp_value < _min:
+                _min = dp_value
+                picked_coin = coin
+
+        picked_coins.append(picked_coin)
+        t = t - picked_coin
+
+    return dp_table[T], picked_coins
+
+
 def coin_change_recursive_2(T, D, i):
     if i == len(D):
         return sys.maxint
@@ -117,6 +157,25 @@ def coin_change_recursive_2(T, D, i):
     return min(choice1, choice2)
 
 
+def xcoin_change_DP_2(T, D):
+    dp_table = [[0] * (len(D) + 1) for _ in range(T + 1)]
+    for t in range(T + 1):
+        for i in range(len(D), -1, -1):
+            if t == 0:
+                dp_table[t][i] = 0
+            elif i == len(D):
+                dp_table[t][i] = 100
+            else:
+                _min = 100
+                if D[i] <= t:
+                    dp_table[t][i] = min(dp_table[t - D[i]][i] + 1, dp_table[t][i + 1])
+                else:
+                    dp_table[t][i] = _min
+
+    print_grid(dp_table)
+    return dp_table[T][0]
+
+
 def coin_change_DP_2(T, D):
     dp_table = [[0] * (len(D) + 1) for _ in range(T + 1)]
     for t in range(T + 1):
@@ -124,16 +183,39 @@ def coin_change_DP_2(T, D):
             if t == 0:
                 dp_table[t][i] = 0
             elif i == len(D):
-                dp_table[t][i] = sys.maxint
+                dp_table[t][i] = 100
             else:
-                _min = sys.maxint
+                _min = 100
                 if D[i] <= t:
-                    dp_table[t][i] = min(_min, dp_table[t - D[i]][i] + 1, dp_table[t][i + 1])
+                    dp_table[t][i] = min(dp_table[t - D[i]][i] + 1, dp_table[t][i + 1])
                 else:
                     dp_table[t][i] = _min
 
+    # to find out which coins were picked, we need to back track the DP table
+    # dp_table[T][0] has our answer, now we'll back track from there by
+    # reversing the process
+
+    # dp[T][0] is chosen from min (dp[T-D[0][0] + 1, dp[T][1])
+    # we'll choose minimum of these two
+
+    t = T
+    i = 0
+    picked_coins = []
+    while t > 0 and i <= len(D):
+        choice1 = dp_table[t - D[i]][i] + 1
+        choice2 = dp_table[t][i + 1]
+
+        if choice1 < choice2:
+            t = t - D[i]
+        else:
+            i += 1
+
+        if t != T:
+            picked_coins.append(D[i])
+
     print_grid(dp_table)
-    return dp_table[T][0]
+    print picked_coins
+    return dp_table[T][0], picked_coins
 
 
 def main():
@@ -143,16 +225,16 @@ def main():
 
     TOTAL_AMOUNT = 18
     DENOMINATIONS = [1, 9, 13]
-    # DENOMINATIONS = [34, 11, 18, 99]
+    # DENOMINATIONS = [34, 11, 18, 99, 6]
     # TOTAL_AMOUNT = 76
     # TOTAL_AMOUNT = 6
     # DENOMINATIONS = [2, 3]
 
-    # TOTAL_AMOUNT = 91
-    # DENOMINATIONS = [64, 63, 29, 1]
+    TOTAL_AMOUNT = 91
+    DENOMINATIONS = [64, 63, 29, 1]
 
     ans_recursive = coin_change_recursive(TOTAL_AMOUNT, DENOMINATIONS)
-    ans_dp = coin_change_DP(TOTAL_AMOUNT, DENOMINATIONS)
+    ans_dp, picked_coins_dp1 = coin_change_DP(TOTAL_AMOUNT, DENOMINATIONS)
 
     print TOTAL_AMOUNT, DENOMINATIONS
     print ans_recursive
@@ -160,15 +242,18 @@ def main():
     assert ans_recursive == ans_dp
 
     ans_recursive_2 = coin_change_recursive_2(TOTAL_AMOUNT, DENOMINATIONS, 0)
-    ans_dp_2 = coin_change_DP_2(TOTAL_AMOUNT, DENOMINATIONS)
+    ans_dp_2, picked_coins_dp2 = coin_change_DP_2(TOTAL_AMOUNT, DENOMINATIONS)
     print ans_recursive_2
 
-    print ans_dp
-    print ans_dp_2
+    print "dp1", ans_dp
+    print "dp2", ans_dp_2
 
-    assert ans_recursive_2 == ans_dp_2
-    assert ans_recursive == ans_recursive_2
-    assert ans_dp == ans_dp_2
+    # assert ans_recursive_2 == ans_dp_2
+    # assert ans_recursive == ans_recursive_2
+    # assert ans_dp == ans_dp_2
+
+    print "picked coins dp1", picked_coins_dp1
+    print "picked coins dp2", picked_coins_dp2
 
 
 if __name__ == '__main__':
