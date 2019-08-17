@@ -15,7 +15,7 @@ Step 4: Define recurrence relationship
         F(i, j) returns the maximum sum by following a path which ends at (i, j)
         e.g F(N-1, M-1) = max sum at the end of the grid
 
-Step 5: return the result from the DP table
+Step 5: return the result from the cell of a DP table
 """
 
 import random
