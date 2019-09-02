@@ -1,3 +1,23 @@
+Overview:
+
+(1) Simple problems like palindrome and reverse the string
+(2) Introduction to Expand and reset approach and similar problems
+    - find a substring containing all characters from a set
+    - two indexes in the array whose sum is K
+(3) Introduction to Tries
+    - prefix search problem
+    - pattern matching problem
+(4) substring search problems
+    - KMP
+    - Robin Karp (rolling hash can find two strings are equal or not using constant time)
+    - using suffix trie
+    - using suffix trees
+    - radix tree is a compressed trie
+(5) Generalized suffix trees
+    - suffix trees having multiple strings
+    - helps solving following problems
+        - given 10 strings what all common substrings are
+        - longest common substring across 10 strings
 
 Tips about index manipulation:
     1. Left and Right manipulation
@@ -9,10 +29,10 @@ Tips about index manipulation:
 
        so choose the indexes such that you are advancing in either direction
 
-
-
 remaining
 ___________________________
+
+-- time and space complexity of tries and suffix trees
 
 (1) Given a String "abadba" and a set {b, d} (done)
     find the smallest substring which contains all the characters from the set
