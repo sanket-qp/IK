@@ -1,0 +1,97 @@
+
+Tips about index manipulation:
+    1. Left and Right manipulation
+    2. Choose pointers such that it gives you clear separation.
+       either starts from left and right, or both indexes start from left
+
+       if advancing both left and right gives lands up in same state then
+       we end up with recursion i.e. we have to try all choices.
+
+       so choose the indexes such that you are advancing in either direction
+
+
+
+remaining
+___________________________
+
+(1) Given a String "abadba" and a set {b, d} (done)
+    find the smallest substring which contains all the characters from the set
+
+    Controlling the set means, the substring contains all the characters from the set
+
+    Exapnd Rest approach:
+        Expand to the right side until the substrig is not controlling the set
+        As soon as the substring controls the set start shrinking from left side
+        until it stops controlling the set
+
+(2) Two sum problem, given a sorted array, find two elements which sums up to K
+    keep two indexes left and right
+    if sum of two indexes > K: reduce right
+    if sum of two indexes < K: increment left
+
+    Variation
+    Given a sorted array and integer K, identify any pair of elements that have a
+    difference of K
+    Expand Reset approach
+
+(3) Find first and last occurrence of an element using binary search in sorted array
+
+(4) Prefix search problem using binary search (done)
+    Using Tries
+
+(5) find words that match a pattern from given list of word
+    '.' -> matches any given character
+    CAT, CAN, CUT, BAT
+
+    '.AT' -> matches CAT, BAT
+    'C..' -> matches CAT, CAN, CUT
+
+(6) DOT and QuestionMark
+    ? -> matches 0 or 1 any char
+    * -> matches 0 or more of any characters
+
+(7) KMP , Rabin Karp (rolling hash)
+
+    Suffix Trie/Tree
+    Another approach for substring search
+    Insight: each substring is a prefix of a suffix
+    Example, string abcd
+    suffixes: d, cd, bcd, abcd
+    substrings: a, b, c, d, ab, bc, cd, abc, bcd, abcd
+
+    each substring will be a prefix of any suffix
+    substr a is prefix of suffix abcd
+    substr ab is prefix of suffix abcd
+    substr bcd is prefix of suffix bcd
+
+    so we can build a Trie of all the suffixes and do a prefix search (i.e substring is a prefix)
+
+    It takes O(N^2) to build a suffix trie
+    and each Query takes O(len(substr)) to query
+
+    This is as good as a brute force but another variation called Suffix trees can be build in O(N) time
+    which can help.
+
+    In interview though, only implement suffix trie because suffix tree O(N) algorith is complex, UKKONEN's algorightm.
+    just mention that algorithm.
+
+
+(8) another application of suffix tree
+
+    Radix tree is just like a Trie but compressed to save the space
+    most repeating substring
+    longest repeating substring
+
+    MISSISSIPPI$
+    longest repeating is ISSI
+
+    Implement redix tree
+
+(9) Generalized suffix trees
+     suffix tree of multiple strings
+     used to find substring across multiple strings
+
+     e.g. find a substring from 10 given strings
+
+     given 10 strings what all common substrings are
+     longest common substring across 10 strings
