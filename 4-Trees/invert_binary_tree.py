@@ -1,3 +1,29 @@
+"""
+
+You are given root node of a binary tree T. You need to modify that tree in place,
+transform it into the mirror image of the initial tree T.
+
+https://medium.com/@theodoreyoong/coding-short-inverting-a-binary-tree-in-python-f178e50e4dac
+
+          ______8______
+         /             \
+        1             __16
+                     /
+                   10
+                     \
+                     15
+
+should convert to
+
+          ______8______
+         /             \
+        16__            1
+           \
+           10
+           /
+         15
+"""
+
 import random
 
 from bst import Tree as BST
