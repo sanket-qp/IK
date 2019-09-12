@@ -14,6 +14,7 @@ class Node:
         self.left = None
         self.right = None
         self.level = None
+        self.next = None
 
     def is_leaf(self):
         return (not self.left and not self.right)
