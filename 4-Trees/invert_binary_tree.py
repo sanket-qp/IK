@@ -52,6 +52,7 @@ def main():
     mirror_image(tree.root)
     print ""
     print "after inverting"
+    print ""
     tree.pretty_print()
 
 
