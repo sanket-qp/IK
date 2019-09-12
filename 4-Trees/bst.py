@@ -1,12 +1,14 @@
 import sys
 
+from binary_tree_printer import Node as PrettyPrintNode
+
 """
 Implementation of Binary Search Tree
 """
 
 
 class Node:
-    def __init__(self, key, data):
+    def __init__(self, key, data=None):
         self.key = key
         self.data = data
         self.left = None
@@ -15,6 +17,12 @@ class Node:
 
     def is_leaf(self):
         return (not self.left and not self.right)
+
+    def pretty_print(self):
+        pretty_print_node = PrettyPrintNode(self.data)
+        pretty_print_node.left = self.left
+        pretty_print_node.right = self.right
+        pretty_print_node.prettyPrint()
 
     def __str__(self):
         return "(%d, %s)" % (self.key, self.data)
@@ -155,6 +163,17 @@ class Tree:
 
     def levelorder(self):
         return self._levelorder(self.root)
+
+    def levelorder_nodes(self):
+        queue = []
+        queue.append(self.root)
+        while queue:
+            node = queue.pop(0)
+            yield node
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
 
     def _levelorder(self, current):
         return self._levelorder_bfs(self.root)
@@ -360,6 +379,22 @@ class Tree:
     def inorder_successor(self, n):
         return self._inorder_successor(self.root, n)
 
+    # to use external library we need to change this tree's node class
+    def __make_printable_tree(self):
+        def printable_clone(node):
+            if not node:
+                return None
+            new_root = PrettyPrintNode(str(node.key))
+            new_root.left = printable_clone(node.left)
+            new_root.right = printable_clone(node.right)
+            return new_root
+
+        return printable_clone(self.root)
+
+    def pretty_print(self):
+        printable_root = self.__make_printable_tree()
+        printable_root.prettyPrint()
+
 
 def main():
     t = Tree()
@@ -403,6 +438,24 @@ def main():
     print "%s" % t.root
     print "LCA (22, 44) : %s" % t.LCA(100, 50)
     print "inorder successor : %s" % t.inorder_successor(144)
+
+    # zero = Node(0)
+    # one = Node(1)
+    # two = Node(2)
+    # three = Node(3)
+    # four = Node(4)
+    # five = Node(5)
+    # six = Node(6)
+    # twenty_two = Node(7)
+    #
+    # zero.left = one
+    # zero.right = two
+    # one.left = three
+    # one.right = four
+    # two.left = five
+    # two.right = six
+    # three.left = twenty_two
+    # tree.root = zero
 
 
 if __name__ == "__main__":
