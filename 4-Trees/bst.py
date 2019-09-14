@@ -176,6 +176,44 @@ class Tree:
             if node.right:
                 queue.append(node.right)
 
+    def inorder_nodes(self):
+        def __inorder(node, result):
+            if not node:
+                return
+
+            __inorder(node.left, result)
+            result.append(node)
+            __inorder(node.right, result)
+
+        result = []
+        __inorder(self.root, result)
+        return result
+
+    def preorder_nodes(self):
+        def __preorder(node, result):
+            if not node:
+                return
+
+            result.append(node)
+            __preorder(node.left, result)
+            __preorder(node.right, result)
+
+        result = []
+        __preorder(self.root, result)
+        return result
+
+    def postorder_nodes(self):
+        def __postorder(node, result):
+            if not node:
+                return
+            __postorder(node.right, result)
+            result.append(node)
+            __postorder(node.left, result)
+
+        result = []
+        __postorder(self.root, result)
+        return result
+
     def _levelorder(self, current):
         return self._levelorder_bfs(self.root)
 
@@ -276,6 +314,12 @@ class Tree:
         print "%s" % current
         self._preorder(current.left)
         self._preorder(current.right)
+
+    def _inorder(self, current):
+        if not current: return
+        self._inorder(current.left)
+        print "%s" % current
+        self._inorder(current.right)
 
     def _preorder_stack(self, current):
         stack = []
@@ -393,8 +437,11 @@ class Tree:
         return printable_clone(self.root)
 
     def pretty_print(self):
+        print ""
         printable_root = self.__make_printable_tree()
         printable_root.prettyPrint()
+        print ""
+        print ""
 
 
 def main():
