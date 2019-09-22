@@ -18,6 +18,10 @@ https://www.eagle-web-designs.com/cool_stuff/ByteConversion.html
 1 Gigabyte (G / GB) = 10^9 bytes = 1,000,000,000 bytes
 1 Terabyte (T / TB) = 10^12 bytes = 1,000,000,000,000 bytes
 
+
+Million = MB = 2^20 = 10^6
+Billion = GB = 2^30 = 10^9
+Trillion = TB = 2^40 = 10^12
 -----------------------------------------------------------------
 
 Storage required for 256 B 32 bit integers
@@ -25,7 +29,6 @@ Storage required for 256 B 32 bit integers
 Billion = (10 ^ 9 = 2 ^ 30)
 32 bit = ( 2 ^ 5 bits)
 so total storage required = 2^8 * 2^30 * 2^5 = 2^43 bits OR 2^43/2^3 = 2^40 bytes = 1 TB
-
 ------
 
 Memory Given 16 GB
