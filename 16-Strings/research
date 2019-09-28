@@ -10,9 +10,9 @@ Overview:
 (4) substring search problems
     - KMP
     - Robin Karp (rolling hash can find two strings are equal or not using constant time)
-    - using suffix trie
+    - using suffix trie (done)
     - using suffix trees
-    - radix tree is a compressed trie
+    - radix tree is a compressed trie (done)
 (5) Generalized suffix trees
     - suffix trees having multiple strings
     - helps solving following problems
@@ -39,7 +39,7 @@ ___________________________
 
     Controlling the set means, the substring contains all the characters from the set
 
-    Exapnd Rest approach:
+    Expand Rest approach:
         Expand to the right side until the substrig is not controlling the set
         As soon as the substring controls the set start shrinking from left side
         until it stops controlling the set
@@ -98,7 +98,7 @@ ___________________________
 
 (8) another application of suffix tree
 
-    Radix tree is just like a Trie but compressed to save the space
+    Radix tree is just like a Trie but compressed to save the space (done)
     most repeating substring
     longest repeating substring
 
