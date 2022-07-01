@@ -60,6 +60,7 @@ class Philosopher(Thread):
 class DiningPhilosophersWithMultipleLocks:
     def __init__(self, num_philosophers=5):
         self.num_philosophers = num_philosophers
+        # chopsticks act as locks
         self.chopsticks = [Chopstick("Chopstick:%d" % i) for i in range(num_philosophers)]
         self.philosophers = []
         for i in range(self.num_philosophers):
